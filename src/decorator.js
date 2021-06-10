@@ -1,3 +1,5 @@
+import React from "react";
+
 export const decorators = [
   (Story, { globals: { overlay } }) => {
     const overlayStyle = {
