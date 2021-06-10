@@ -1,22 +1,19 @@
 import { addons, types } from "@storybook/addons";
 import { useGlobals } from "@storybook/api";
 import { AddonPanel, Button, FilesControl, Table } from "@storybook/components";
-import React, { useState } from "react";
+import React from "react";
 
 const ADDON_ID = "storybook-addon-overlay";
 const PANEL_ID = `${ADDON_ID}/panel`;
 
 const OverlayPanel = () => {
   const [global, updateGlobal] = useGlobals();
-  const [files, setFiles] = useState([]);
 
-  function onFileSelected(filesSelected) {
-    if (!filesSelected) {
+  function onFilesSelected(filesSelected) {
+    if (!filesSelected || !filesSelected[0]) {
       updateGlobal({ overlay: undefined });
-      setFiles([]);
       return;
     }
-    setFiles(filesSelected);
     updateGlobal({ overlay: filesSelected[0] });
   }
 
@@ -29,18 +26,14 @@ const OverlayPanel = () => {
           <tr>
             <th>Select an image file to overlay stories with:</th>
             <td>
-              <FilesControl
-                type="file"
-                onChange={(e) => onFileSelected(e)}
-                value={files}
-              />
+              <FilesControl type="file" onChange={(e) => onFilesSelected(e)} />
             </td>
           </tr>
         )}
         {global.overlay && (
           <tr>
             <td>
-              <Button primary onClick={() => onFileSelected(undefined)}>
+              <Button primary onClick={() => onFilesSelected(undefined)}>
                 Reset overlay
               </Button>
             </td>

@@ -10,8 +10,9 @@ export const decorators = [
       left: 0,
       opacity: 0.5,
     };
+    const containerStyle = { position: "relative" };
     return (
-      <div style={{ position: "relative" }}>
+      <div style={containerStyle}>
         <Story />
         <div style={overlayStyle} />
       </div>
